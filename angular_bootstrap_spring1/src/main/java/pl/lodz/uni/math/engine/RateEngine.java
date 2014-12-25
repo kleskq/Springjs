@@ -9,7 +9,6 @@ import pl.lodz.uni.math.pojo.Rate;
 @Table(name = "Rate")
 public class RateEngine extends Rate {
 
-
 	/**
 	 * 
 	 */
@@ -17,6 +16,15 @@ public class RateEngine extends Rate {
 
 	public RateEngine() {
 		super();
+	}
+
+	public RateEngine(int rating, UserEngine evaluator, NoteEngine note) {
+		super(rating, evaluator, note);
+	}
+
+	public RateEngine(int rateId, int rating, UserEngine evaluator,
+			NoteEngine note) {
+		super(rateId, rating, evaluator, note);
 	}
 
 }

@@ -11,4 +11,13 @@ public class RatingDto {
 		this.rating = rating;
 	}
 
+	public RatingDto() {
+		super();
+	}
+
+	public RatingDto(String rating) {
+		super();
+		this.rating = rating;
+	}
+
 }
