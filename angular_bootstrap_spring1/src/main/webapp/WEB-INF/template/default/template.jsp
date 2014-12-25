@@ -1,8 +1,16 @@
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@ taglib uri='http://java.sun.com/jsp/jstl/core' prefix='c'%>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Default tiles template</title>
+<link href="<c:url value="/resources/star-rating/jquery.rating.css" />"
+	rel="stylesheet">
+<script src="<c:url value="/resources/star-rating/jquery.js" />"></script>
+<script src="<c:url value="/resources/star-rating/jquery.rating.js" />"></script>
+
+
 <style type="text/css">
 body {
 	margin: 0px;

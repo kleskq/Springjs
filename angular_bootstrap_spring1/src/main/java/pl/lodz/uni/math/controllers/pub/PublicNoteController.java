@@ -14,6 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import pl.lodz.uni.math.controllers.user.NoteController;
 import pl.lodz.uni.math.dto.NoteDto;
+import pl.lodz.uni.math.dto.RatingDto;
 import pl.lodz.uni.math.service.NoteService;
 
 
@@ -46,7 +47,7 @@ public class PublicNoteController {
 		model.setViewName("public/noteReader");
 		model.addObject("note", note);
 		model.addObject("date", date);
- 
+		model.addObject("command",new RatingDto());
 		return model;
  
 	}
