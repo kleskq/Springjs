@@ -65,7 +65,9 @@ public class NoteServiceImpl implements NoteService {
 		noteDto.setNoteText(note.getNoteText());
 		noteDto.setNoteTitle(note.getNoteTitle());
 		noteDto.setUserName(note.getAuthor().getUserName());
-
+		if(note.getAvrageRating()!=null){
+			log.info(note.getAvrageRating()+" note rating");
+		}
 		return noteDto;
 	}
 
@@ -112,18 +114,25 @@ public class NoteServiceImpl implements NoteService {
 
 	@Override
 	public NoteRatingJsonDto getNotes(int pageNumber, String searchParameter,
-			int pageDisplayLength) {
+			int pageDisplayLength, String columntToSort, String sortDirection) {
 		log.info(pageNumber + " " + searchParameter + " " + pageDisplayLength);
 		List<NoteRatingDto> noteList = createDto(noteDao.getNotesForRatingList(
-				pageNumber, searchParameter, pageDisplayLength));
+				pageNumber, searchParameter, pageDisplayLength,columntToSort,sortDirection));
 		NoteRatingJsonDto notesJsonObject = new NoteRatingJsonDto();
 		notesJsonObject.setAaData(noteList);
 		int count = noteDao.countNotes();
+		if(searchParameter.equals("")){
 		notesJsonObject.setiTotalDisplayRecords(count);
+		}
+		else{
+			notesJsonObject.setiTotalDisplayRecords(noteDao
+					.countNotesWithParameter(searchParameter));	
+		}
 		notesJsonObject.setiTotalRecords(count);
 		return notesJsonObject;
 	}
 
+	//funkcja przerabia Engine na Dto
 	private List<NoteRatingDto> createDto(List<NoteEngine> notes) {
 		List<NoteRatingDto> dtos = new ArrayList<NoteRatingDto>();
 		for (NoteEngine note : notes) {

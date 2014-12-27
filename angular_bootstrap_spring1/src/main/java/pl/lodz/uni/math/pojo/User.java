@@ -11,6 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.OneToMany;
 
+import org.hibernate.annotations.ForeignKey;
+
 import pl.lodz.uni.math.engine.NoteEngine;
 import pl.lodz.uni.math.engine.RateEngine;
 import pl.lodz.uni.math.engine.UserEngine;

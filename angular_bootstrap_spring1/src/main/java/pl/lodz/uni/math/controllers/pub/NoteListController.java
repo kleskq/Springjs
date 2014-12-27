@@ -5,6 +5,8 @@ import java.io.IOException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -23,9 +25,11 @@ import com.google.gson.GsonBuilder;
 @Controller
 public class NoteListController {
 
+	private static final Logger logger = LoggerFactory
+			.getLogger(NoteListController.class);
+
 	@Autowired
 	private NoteService noteService;
-
 
 	@RequestMapping(value = "/noteList", method = RequestMethod.GET)
 	public String printWelcome(@ModelAttribute("person") NoteRatingDto person,
@@ -44,17 +48,19 @@ public class NoteListController {
 			pageNumber = (Integer
 					.valueOf(request.getParameter("iDisplayStart")) / 10) + 1;
 
+		String columntToSort = request.getParameter("iSortCol_0");
+		String sortDirection = request.getParameter("sSortDir_0");
+		logger.info("column number : " + columntToSort);
+		logger.info("sort direction : " + sortDirection);
 		// Fetch search parameter
 		String searchParameter = request.getParameter("sSearch");
 
 		// Fetch Page display length
 		int pageDisplayLength = Integer.valueOf(request
 				.getParameter("iDisplayLength"));
-
 		Gson gson = new GsonBuilder().setPrettyPrinting().create();
 		String json2 = gson.toJson(noteService.getNotes(pageNumber,
-				searchParameter, pageDisplayLength));
+				searchParameter, pageDisplayLength, columntToSort,sortDirection));
 		return json2;
 	}
-
 }

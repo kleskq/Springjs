@@ -20,3 +20,7 @@ insert into Note (linkId,NoteTitle,NoteText,CreateDate,UserId,notes) values ('8'
 insert into Note (linkId,NoteTitle,NoteText,CreateDate,UserId,notes) values ('9','title9','text','2014-12-27 15:40:46.959','1','1');
 insert into Note (linkId,NoteTitle,NoteText,CreateDate,UserId,notes) values ('10','title10','text','2014-12-27 15:40:46.959','1','1');
 insert into Note (linkId,NoteTitle,NoteText,CreateDate,UserId,notes) values ('11','title11','text','2014-12-27 15:40:46.959','1','1');
+insert into Note (linkId,NoteTitle,NoteText,CreateDate,UserId,notes) values ('12','new title','text','2014-12-27 19:20:27.112','2','2');
+insert into Rate (Rating,UserId,NoteId) values ('4','1',12);
+
+

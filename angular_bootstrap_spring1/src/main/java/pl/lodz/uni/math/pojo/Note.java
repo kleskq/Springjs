@@ -15,6 +15,8 @@ import javax.persistence.MappedSuperclass;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
+import org.hibernate.annotations.Formula;
+
 import pl.lodz.uni.math.engine.CategoryEngine;
 import pl.lodz.uni.math.engine.NoteEngine;
 import pl.lodz.uni.math.engine.RateEngine;
@@ -47,7 +49,10 @@ public class Note implements Serializable, Cloneable {
 	private CategoryEngine category;
 	@OneToMany(mappedBy = "note", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private Set<RateEngine> rates;
-
+	
+	@Formula("(select avg(r.Rating) from Rate r  ,Note n where r.NoteId = n.NoteId AND n.NoteId = noteId)")
+	private Double avrageRating;
+	
 	public int getNoteId() {
 		return noteId;
 	}
@@ -110,6 +115,16 @@ public class Note implements Serializable, Cloneable {
 
 	public void setCreateDate(Date createDate) {
 		this.createDate = createDate;
+	}
+
+	
+	
+	public Double getAvrageRating() {
+		return avrageRating;
+	}
+
+	public void setAvrageRating(Double avrageRating) {
+		this.avrageRating = avrageRating;
 	}
 
 	public Note() {

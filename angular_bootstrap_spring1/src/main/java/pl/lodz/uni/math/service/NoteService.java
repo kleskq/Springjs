@@ -15,5 +15,5 @@ public interface NoteService {
 	public List<NoteLDto> getUserNotes(String userName);
 	public boolean saveRating(String id, String rating, String name);
 	public RatingDto getRatingForNoteAndUser(long id, String name);
-	public NoteRatingJsonDto getNotes(int pageNumber,String searchParameter,int pageDisplayLength);
+	public NoteRatingJsonDto getNotes(int pageNumber,String searchParameter,int pageDisplayLength, String columntToSort, String sortDirection);
 }
