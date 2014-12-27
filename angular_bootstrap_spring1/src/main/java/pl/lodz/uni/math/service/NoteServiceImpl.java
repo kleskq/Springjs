@@ -12,6 +12,8 @@ import org.springframework.stereotype.Service;
 import pl.lodz.uni.math.dto.NewNoteDto;
 import pl.lodz.uni.math.dto.NoteDto;
 import pl.lodz.uni.math.dto.NoteLDto;
+import pl.lodz.uni.math.dto.NoteRatingDto;
+import pl.lodz.uni.math.dto.NoteRatingJsonDto;
 import pl.lodz.uni.math.dto.RatingDto;
 import pl.lodz.uni.math.engine.NoteEngine;
 import pl.lodz.uni.math.engine.RateEngine;
@@ -28,47 +30,12 @@ public class NoteServiceImpl implements NoteService {
 
 	@Autowired
 	private NoteDao noteDao;
-
-	public NoteDao getNoteDao() {
-		return noteDao;
-	}
-
-	public void setNoteDao(NoteDao noteDao) {
-		this.noteDao = noteDao;
-	}
-
 	@Autowired
 	private UserDao userDao;
-
-	public UserDao getUserDao() {
-		return userDao;
-	}
-
-	public void setUserDao(UserDao userDao) {
-		this.userDao = userDao;
-	}
-
 	@Autowired
 	private CategoryDao categoryDao;
-
-	public CategoryDao getCategoryDao() {
-		return categoryDao;
-	}
-
-	public void setCategoryDao(CategoryDao categoryDao) {
-		this.categoryDao = categoryDao;
-	}
-
 	@Autowired
 	private RatingDao ratingDao;
-
-	public RatingDao getRatingDao() {
-		return ratingDao;
-	}
-
-	public void setRatingDao(RatingDao ratingDao) {
-		this.ratingDao = ratingDao;
-	}
 
 	@Override
 	public long saveNote(NewNoteDto newNoteDto) {
@@ -82,7 +49,6 @@ public class NoteServiceImpl implements NoteService {
 		noteEngine.setCategory(categoryDao.getCategoryByCategoryName(newNoteDto
 				.getCategory()));
 
-		log.info(noteEngine.getLinkId() + "");
 		if (noteDao.saveNote(noteEngine)) {
 			return noteEngine.getLinkId();
 		} else {
@@ -107,7 +73,6 @@ public class NoteServiceImpl implements NoteService {
 	public List<NoteLDto> getUserNotes(String userName) {
 		List<NoteEngine> notes = noteDao.getUserNotes(userDao
 				.getUserByName(userName));
-		log.info(notes.size() + "");
 		List<NoteLDto> noteDtos = new ArrayList<>();
 		for (NoteEngine noteEngine : notes) {
 			noteDtos.add(new NoteLDto(noteEngine.getNoteTitle(), noteEngine
@@ -143,6 +108,36 @@ public class NoteServiceImpl implements NoteService {
 		} else {
 			return new RatingDto(String.valueOf(rate.getRating()));
 		}
+	}
+
+	@Override
+	public NoteRatingJsonDto getNotes(int pageNumber, String searchParameter,
+			int pageDisplayLength) {
+		log.info(pageNumber + " " + searchParameter + " " + pageDisplayLength);
+		List<NoteRatingDto> noteList = createDto(noteDao.getNotesForRatingList(
+				pageNumber, searchParameter, pageDisplayLength));
+		NoteRatingJsonDto notesJsonObject = new NoteRatingJsonDto();
+		notesJsonObject.setAaData(noteList);
+		int count = noteDao.countNotes();
+		notesJsonObject.setiTotalDisplayRecords(count);
+		notesJsonObject.setiTotalRecords(count);
+		return notesJsonObject;
+	}
+
+	private List<NoteRatingDto> createDto(List<NoteEngine> notes) {
+		List<NoteRatingDto> dtos = new ArrayList<NoteRatingDto>();
+		for (NoteEngine note : notes) {
+			NoteRatingDto noteRatingDto = new NoteRatingDto();
+			noteRatingDto.setNoteTitle(note.getNoteTitle());
+			noteRatingDto.setAuthor(note.getAuthor().getUserName());
+			noteRatingDto.setCategory(note.getCategory().getCategoryName());
+			noteRatingDto.setCode(Long.toString(note.getLinkId()));
+			noteRatingDto.setRating("3");
+			noteRatingDto.setCreateDate(note.getCreateDate().toString());
+			dtos.add(noteRatingDto);
+		}
+
+		return dtos;
 	}
 
 }

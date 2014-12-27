@@ -88,4 +88,33 @@ public class NoteDaoImpl extends BaseDao implements NoteDao {
 
 	}
 
+	@Override
+	@Transactional(readOnly = true)
+	public int countNotes() {
+		EntityManager em = emf.createEntityManager();
+		Query query = em.createQuery("SELECT COUNT(n) FROM NoteEngine n");
+		int count = (int) countData(query);
+
+		return count;
+	}
+
+	@Override
+	public List<NoteEngine> getNotesForRatingList(int pageNumber,
+			String searchParameter, int pageDisplayLength) {
+		int start = ((pageNumber - 1) * pageDisplayLength);
+		EntityManager em = emf.createEntityManager();
+		Query query = em.createQuery("SELECT c FROM NoteEngine c");
+		query.setFirstResult(start);
+		query.setMaxResults(pageDisplayLength);
+
+		List<NoteEngine> notes = (List<NoteEngine>) loadData(NoteEngine.class,
+				query);
+		log.info(notes.size() + "");
+		if (notes == null || notes.isEmpty()) {
+			log.info("No notes found");
+			return new ArrayList<NoteEngine>();
+		}
+		return notes;
+	}
+
 }

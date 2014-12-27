@@ -14,4 +14,9 @@ public interface NoteDao {
 	public NoteEngine getNoteByCode(long code);
 
 	public List<NoteEngine> getUserNotes(UserEngine userName);
+	
+	public int countNotes();
+	
+	public List<NoteEngine> getNotesForRatingList(int pageNumber, String searchParameter,
+			int pageDisplayLength);
 }

@@ -18,14 +18,6 @@ public class UserPanelController {
 	@Autowired
 	private NoteService noteService;
 
-	public NoteService getNoteService() {
-		return noteService;
-	}
-
-	public void setNoteService(NoteService noteService) {
-		this.noteService = noteService;
-	}
-
 	@RequestMapping(value = "user/panel", method = RequestMethod.GET)
 	public String about(Model model) {
 		String userName = SecurityContextHolder.getContext()

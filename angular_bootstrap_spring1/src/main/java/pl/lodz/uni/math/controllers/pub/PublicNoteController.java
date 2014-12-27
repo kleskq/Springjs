@@ -30,13 +30,6 @@ public class PublicNoteController {
 	@Autowired
 	private NoteService noteService;
 
-	public NoteService getNoteService() {
-		return noteService;
-	}
-
-	public void setNoteService(NoteService noteService) {
-		this.noteService = noteService;
-	}
 
 	@RequestMapping(value = "/note/{id:.+}", method = RequestMethod.GET)
 	public ModelAndView showNote(@PathVariable("id") long id, Locale locale) {

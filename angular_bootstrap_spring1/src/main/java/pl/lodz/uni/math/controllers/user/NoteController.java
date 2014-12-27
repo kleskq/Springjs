@@ -17,24 +17,8 @@ public class NoteController {
 	@Autowired
 	private NoteService noteService;
 
-	public NoteService getNoteService() {
-		return noteService;
-	}
-
-	public void setNoteService(NoteService noteService) {
-		this.noteService = noteService;
-	}
-
 	@Autowired
 	private CategoryService categoryService;
-
-	public CategoryService getCategoryService() {
-		return categoryService;
-	}
-
-	public void setCategoryService(CategoryService categoryService) {
-		this.categoryService = categoryService;
-	}
 
 	@RequestMapping(value = { "/user" }, method = RequestMethod.GET)
 	public String createNewNote(Model model) {

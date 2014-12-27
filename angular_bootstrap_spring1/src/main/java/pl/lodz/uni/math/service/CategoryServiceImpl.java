@@ -14,14 +14,6 @@ public class CategoryServiceImpl implements CategoryService {
 	@Autowired
 	private CategoryDao categoryDao;
 
-	public CategoryDao getCategoryDao() {
-		return categoryDao;
-	}
-
-	public void setCategoryDao(CategoryDao categoryDao) {
-		this.categoryDao = categoryDao;
-	}
-
 	@Override
 	public Collection<String> getCategories() {
 		Collection<CategoryEngine> categories = categoryDao.getCategories();

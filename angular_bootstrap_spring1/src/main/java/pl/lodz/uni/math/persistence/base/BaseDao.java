@@ -35,7 +35,7 @@ public class BaseDao {
 
 		try {
 			List<T> data = new ArrayList<T>();
-
+			
 			Collection<T> resultList = query.getResultList();
 			if (resultList != null) {
 				for (T element : resultList) {
@@ -49,6 +49,19 @@ public class BaseDao {
 			em.close();
 		}
 	}
+	
+
+	protected long countData(Query query) {
+		EntityManager em = emf.createEntityManager();
+
+		try {
+			long count = (long)query.getSingleResult();
+			return count;
+		} finally {
+			em.close();
+		}
+	}
+	
 
     protected <T extends Cloneable> boolean deleteSingleData(Class<T> oType, Long id) throws UpdateDeleteException {
         EntityManager entityManager = getEmf().createEntityManager();
