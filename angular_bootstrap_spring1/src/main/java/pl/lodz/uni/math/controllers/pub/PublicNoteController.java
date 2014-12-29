@@ -19,6 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
 import pl.lodz.uni.math.controllers.user.NoteController;
 import pl.lodz.uni.math.dto.NoteDto;
 import pl.lodz.uni.math.dto.RatingDto;
+import pl.lodz.uni.math.persistence.dao.exception.BadNoteCodeException;
 import pl.lodz.uni.math.service.NoteService;
 
 @Controller
@@ -36,7 +37,14 @@ public class PublicNoteController {
 		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG,
 				DateFormat.LONG, locale);
 		ModelAndView model = new ModelAndView();
-		NoteDto note = noteService.getNoteByCode(id);
+		NoteDto note = null;
+		try {
+			note = noteService.getNoteByCode(id);
+		} catch (BadNoteCodeException e) {
+			model.addObject("message", e.getMessage());
+			model.setViewName("public/noteNotFound");
+			return model;
+		}
 		String date = dateFormat.format(note.getCreateDate());
 		model.addObject("note", note);
 		model.addObject("date", date);

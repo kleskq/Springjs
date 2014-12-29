@@ -18,11 +18,11 @@ public class RateEngine extends Rate {
 		super();
 	}
 
-	public RateEngine(double rating, UserEngine evaluator, NoteEngine note) {
+	public RateEngine(int rating, UserEngine evaluator, NoteEngine note) {
 		super(rating, evaluator, note);
 	}
 
-	public RateEngine(int rateId, double rating, UserEngine evaluator,
+	public RateEngine(int rateId, int rating, UserEngine evaluator,
 			NoteEngine note) {
 		super(rateId, rating, evaluator, note);
 	}

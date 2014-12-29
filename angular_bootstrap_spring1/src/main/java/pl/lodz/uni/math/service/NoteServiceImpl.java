@@ -22,6 +22,7 @@ import pl.lodz.uni.math.persistence.dao.CategoryDao;
 import pl.lodz.uni.math.persistence.dao.NoteDao;
 import pl.lodz.uni.math.persistence.dao.RatingDao;
 import pl.lodz.uni.math.persistence.dao.UserDao;
+import pl.lodz.uni.math.persistence.dao.exception.BadNoteCodeException;
 
 @Service
 public class NoteServiceImpl implements NoteService {
@@ -57,18 +58,20 @@ public class NoteServiceImpl implements NoteService {
 	}
 
 	@Override
-	public NoteDto getNoteByCode(long code) {
+	public NoteDto getNoteByCode(long code) throws BadNoteCodeException {
 		NoteEngine note = noteDao.getNoteByCode(code);
-
-		NoteDto noteDto = new NoteDto();
-		noteDto.setCreateDate(note.getCreateDate());
-		noteDto.setNoteText(note.getNoteText());
-		noteDto.setNoteTitle(note.getNoteTitle());
-		noteDto.setUserName(note.getAuthor().getUserName());
-		if(note.getAvrageRating()!=null){
-			log.info(note.getAvrageRating()+" note rating");
+		if (note != null) {
+			NoteDto noteDto = new NoteDto();
+			noteDto.setCreateDate(note.getCreateDate());
+			noteDto.setNoteText(note.getNoteText());
+			noteDto.setNoteTitle(note.getNoteTitle());
+			noteDto.setUserName(note.getAuthor().getUserName());
+			// log.info(note.getAvrageRating()+" note rating");
+			return noteDto;
+		} else {
+			throw new BadNoteCodeException("No Note found with the given id");
 		}
-		return noteDto;
+
 	}
 
 	@Override
@@ -117,22 +120,22 @@ public class NoteServiceImpl implements NoteService {
 			int pageDisplayLength, String columntToSort, String sortDirection) {
 		log.info(pageNumber + " " + searchParameter + " " + pageDisplayLength);
 		List<NoteRatingDto> noteList = createDto(noteDao.getNotesForRatingList(
-				pageNumber, searchParameter, pageDisplayLength,columntToSort,sortDirection));
+				pageNumber, searchParameter, pageDisplayLength, columntToSort,
+				sortDirection));
 		NoteRatingJsonDto notesJsonObject = new NoteRatingJsonDto();
 		notesJsonObject.setAaData(noteList);
 		int count = noteDao.countNotes();
-		if(searchParameter.equals("")){
-		notesJsonObject.setiTotalDisplayRecords(count);
-		}
-		else{
+		if (searchParameter.equals("")) {
+			notesJsonObject.setiTotalDisplayRecords(count);
+		} else {
 			notesJsonObject.setiTotalDisplayRecords(noteDao
-					.countNotesWithParameter(searchParameter));	
+					.countNotesWithParameter(searchParameter));
 		}
 		notesJsonObject.setiTotalRecords(count);
 		return notesJsonObject;
 	}
 
-	//funkcja przerabia Engine na Dto
+	// funkcja przerabia Engine na Dto
 	private List<NoteRatingDto> createDto(List<NoteEngine> notes) {
 		List<NoteRatingDto> dtos = new ArrayList<NoteRatingDto>();
 		for (NoteEngine note : notes) {
@@ -141,7 +144,7 @@ public class NoteServiceImpl implements NoteService {
 			noteRatingDto.setAuthor(note.getAuthor().getUserName());
 			noteRatingDto.setCategory(note.getCategory().getCategoryName());
 			noteRatingDto.setCode(Long.toString(note.getLinkId()));
-			noteRatingDto.setRating("3");
+			noteRatingDto.setRating(Double.toString(note.getAvrageRating()));
 			noteRatingDto.setCreateDate(note.getCreateDate().toString());
 			dtos.add(noteRatingDto);
 		}

@@ -22,7 +22,7 @@ public class Rate implements Serializable, Cloneable {
 	@Column(name = "RateId")
 	private int rateId;
 	@Column(name = "Rating")
-	private double rating; // 1 - 5
+	private int rating; // 1 - 5
 	@ManyToOne
 	@JoinColumn(name = "UserId")
 	private UserEngine evaluator;
@@ -38,11 +38,11 @@ public class Rate implements Serializable, Cloneable {
 		this.rateId = rateId;
 	}
 
-	public double getRating() {
+	public int getRating() {
 		return rating;
 	}
 
-	public void setRating(double rating) {
+	public void setRating(int rating) {
 		this.rating = rating;
 	}
 
@@ -66,14 +66,14 @@ public class Rate implements Serializable, Cloneable {
 		super();
 	}
 
-	public Rate(double rating, UserEngine evaluator, NoteEngine note) {
+	public Rate(int rating, UserEngine evaluator, NoteEngine note) {
 		super();
 		this.rating = rating;
 		this.evaluator = evaluator;
 		this.note = note;
 	}
 
-	public Rate(int rateId, double rating, UserEngine evaluator, NoteEngine note) {
+	public Rate(int rateId, int rating, UserEngine evaluator, NoteEngine note) {
 		super();
 		this.rateId = rateId;
 		this.rating = rating;
@@ -86,7 +86,7 @@ public class Rate implements Serializable, Cloneable {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + rateId;
-		result = (int) (prime * result + rating);
+		result = prime * result + rating;
 		return result;
 	}
 

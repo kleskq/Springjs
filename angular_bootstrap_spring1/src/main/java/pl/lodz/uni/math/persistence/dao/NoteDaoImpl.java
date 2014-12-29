@@ -32,7 +32,7 @@ public class NoteDaoImpl extends BaseDao implements NoteDao {
 		columns.put(1, "n.category.categoryName");
 		columns.put(2, "n.author.userName");
 		columns.put(3, "n.createDate");
-
+		columns.put(4, "n.avrageRating");
 	}
 
 	@Override

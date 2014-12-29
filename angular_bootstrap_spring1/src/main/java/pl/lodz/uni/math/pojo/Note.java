@@ -1,6 +1,7 @@
 package pl.lodz.uni.math.pojo;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.Set;
 
@@ -50,8 +51,8 @@ public class Note implements Serializable, Cloneable {
 	@OneToMany(mappedBy = "note", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private Set<RateEngine> rates;
 	
-	@Formula("(select avg(r.Rating) from Rate r  ,Note n where r.NoteId = n.NoteId AND n.NoteId = noteId)")
-	private Double avrageRating;
+	@Formula("(SELECT avg(r.rating) FROM Rate r)")
+	private double avrageRating = 3.0;
 	
 	public int getNoteId() {
 		return noteId;
@@ -119,11 +120,11 @@ public class Note implements Serializable, Cloneable {
 
 	
 	
-	public Double getAvrageRating() {
+	public double getAvrageRating() {
 		return avrageRating;
 	}
 
-	public void setAvrageRating(Double avrageRating) {
+	public void setAvrageRating(double avrageRating) {
 		this.avrageRating = avrageRating;
 	}
 
