@@ -1,8 +1,3 @@
-insert into Customer (first_name, last_name) values ('Foo', 'Bar');
-insert into Customer (first_name, last_name) values ('Jim', 'Sunny');
-insert into Customer (first_name, last_name) values ('Peter', 'Prone');
-insert into Customer (first_name, last_name) values ('Sam', 'Sully');
-insert into Customer (first_name, last_name) values ('Jonny', 'Yo');
 insert into User (UserName,Password,Enabled) values('user','user','1');
 insert into User (UserName,Password,Enabled) values('admin','admin','1');
 insert into Userrole (Role,UserId) values ('ROLE_ADMIN','2');

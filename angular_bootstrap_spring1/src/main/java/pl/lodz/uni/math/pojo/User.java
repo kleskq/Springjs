@@ -11,7 +11,6 @@ import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.OneToMany;
 
-
 import pl.lodz.uni.math.engine.NoteEngine;
 import pl.lodz.uni.math.engine.RateEngine;
 import pl.lodz.uni.math.engine.UserEngine;
@@ -26,7 +25,7 @@ public class User implements Serializable, Cloneable {
 	@GeneratedValue
 	@Column(name = "UserId")
 	private int id;
-	@Column(name = "UserName",unique=true)
+	@Column(name = "UserName", unique = true)
 	private String userName;
 	@Column(name = "Password")
 	private String password;
@@ -159,8 +158,7 @@ public class User implements Serializable, Cloneable {
 
 	@Override
 	public UserEngine clone() {
-		return new UserEngine(id, userName, password, enabled, userRoles, notes,
-				rates);
+		return new UserEngine(id, userName, password, enabled, userRoles,
+				notes, rates);
 	}
-
 }

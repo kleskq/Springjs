@@ -5,6 +5,7 @@
 	<tiles:putAttribute name="body">
 		<body>
 			<div class="body">
+			<h1>Create new Note</h1>
 				<form:form action="/abse/user/addNote" method="post">
 				Note title: <br>
 					<form:input class="input" type="text" path="noteTitle" />

@@ -15,7 +15,7 @@ public class AdminController {
     @RequestMapping(value = "/admin", method = RequestMethod.GET)
     public String admin(Model model) {
     	logger.info("Admin page");
-        return "admin/admin";
+        return "admin/index";
     }
      
 }

@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import pl.lodz.uni.math.dto.NewNoteDto;
 import pl.lodz.uni.math.dto.NoteDto;
+import pl.lodz.uni.math.dto.NoteInfoDto;
 import pl.lodz.uni.math.dto.NoteLDto;
 import pl.lodz.uni.math.dto.NoteRatingDto;
 import pl.lodz.uni.math.dto.NoteRatingJsonDto;
@@ -124,7 +125,7 @@ public class NoteServiceImpl implements NoteService {
 				sortDirection));
 		NoteRatingJsonDto notesJsonObject = new NoteRatingJsonDto();
 		notesJsonObject.setAaData(noteList);
-		int count = noteDao.countNotes();
+		int count = noteDao.countNotes(false);
 		if (searchParameter.equals("")) {
 			notesJsonObject.setiTotalDisplayRecords(count);
 		} else {
@@ -150,6 +151,17 @@ public class NoteServiceImpl implements NoteService {
 		}
 
 		return dtos;
+	}
+
+	@Override
+	public NoteInfoDto getNotesInfo() {
+		int count = noteDao.countNotes(false);
+		int countToday = noteDao.countNotes(true);
+		NoteInfoDto noteInfoDto = new NoteInfoDto();
+		noteInfoDto.setNoteCount(count);
+		noteInfoDto.setNoteCountToday(countToday);
+		return noteInfoDto;
+
 	}
 
 }

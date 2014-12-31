@@ -5,18 +5,16 @@
 
 <div class="header">
 	<sec:authorize ifAnyGranted="ROLE_ADMIN">
-		<a href="<c:url value="/admin" />">Admin Panel </a>
+		<a href="<c:url value="/admin" />">Admin Panel</a>
 	</sec:authorize>
 	<c:choose>
 		<c:when test="${pageContext.request.userPrincipal.name != null}">
 		
-		Welcome : <a href="<c:url value="/user/panel" />">${pageContext.request.userPrincipal.name}
-			</a>
-                 | <a href="<c:url value="/j_spring_security_logout" />">
-				Logout</a>
+		Logged in As : <a href="<c:url value="/user/panel"/>">${pageContext.request.userPrincipal.name}</a>
+                 | <a href="<c:url value="/j_spring_security_logout"/>">Logout</a>
 		</c:when>
 		<c:otherwise>
-			<a href="<c:url value="/spring_security_login" />"> Log in</a>
+			<a href="<c:url value="/spring_security_login"/>">Log in</a>
 		</c:otherwise>
 	</c:choose>
 

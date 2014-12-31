@@ -46,7 +46,7 @@ app.service('AuthenticationService', function ($http, $q, localStorageService) {
     this.login = function () {
         var d = $q.defer();
 
-        $http.get('user/authenticated')
+        $http.get('log/authenticated')
             .success(function (user) {
                 localStorageService.set('localStorageUser', user);
 

@@ -35,14 +35,18 @@ public class CustomUserDetailsService implements UserDetailsService {
 		if (domainUser == null) {
 			throw new UsernameNotFoundException("login");
 		}
+		
 		boolean enabled;
-		if (domainUser.getEnabled() == 1)
+		boolean accountNonLocked;
+		if (domainUser.getEnabled() == 1) {
 			enabled = true;
-		else
+			accountNonLocked = true;
+		} else {
 			enabled = false;
+			accountNonLocked = false;
+		}
 		boolean accountNonExpired = true;
 		boolean credentialsNonExpired = true;
-		boolean accountNonLocked = true;
 
 		return new User(domainUser.getUserName(), domainUser.getPassword(),
 				enabled, accountNonExpired, credentialsNonExpired,

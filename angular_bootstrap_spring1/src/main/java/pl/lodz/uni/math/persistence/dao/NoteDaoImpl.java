@@ -1,6 +1,8 @@
 package pl.lodz.uni.math.persistence.dao;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -104,9 +106,18 @@ public class NoteDaoImpl extends BaseDao implements NoteDao {
 
 	@Override
 	@Transactional(readOnly = true)
-	public int countNotes() {
+	public int countNotes(boolean todaysNotes) {
 		EntityManager em = emf.createEntityManager();
-		Query query = em.createQuery("SELECT COUNT(n) FROM NoteEngine n");
+		Query query = null;
+		if (!todaysNotes) {
+			query = em.createQuery("SELECT COUNT(n) FROM NoteEngine n");
+		}
+		else{
+			Calendar cal = Calendar.getInstance();
+			cal.add(Calendar.DAY_OF_YEAR, -1);
+			Date maxModDate = cal.getTime();
+			query = em.createQuery("SELECT COUNT(n) FROM NoteEngine n WHERE n.createDate >= :maxModDate").setParameter("maxModDate", maxModDate);
+		}
 		int count = (int) countData(query);
 
 		return count;
@@ -130,8 +141,7 @@ public class NoteDaoImpl extends BaseDao implements NoteDao {
 		if (!columntToSort.equals("")) {
 			queryString.append("order by ")
 					.append(columns.get(Integer.parseInt(columntToSort)))
-					.append(" ")
-					.append(sortDirection);
+					.append(" ").append(sortDirection);
 		}
 		Query query = em.createQuery(queryString.toString());
 		if (!searchParameter.equals("")) {

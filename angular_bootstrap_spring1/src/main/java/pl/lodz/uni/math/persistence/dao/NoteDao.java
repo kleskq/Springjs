@@ -15,10 +15,11 @@ public interface NoteDao {
 
 	public List<NoteEngine> getUserNotes(UserEngine userName);
 
-	public int countNotes();
+	public int countNotes(boolean todaysNotes);
 
 	public List<NoteEngine> getNotesForRatingList(int pageNumber,
 			String searchParameter, int pageDisplayLength, String columntToSort, String sortDirection);
 
 	public int countNotesWithParameter(String searchParameter);
+
 }

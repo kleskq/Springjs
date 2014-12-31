@@ -7,9 +7,9 @@
 
 <tiles:insertDefinition name="defaultTemplate">
 	<tiles:putAttribute name="body">
-
+	<h1>Note List</h1>
 	<form:form action="" method="GET">
-		<table width="70%"
+		<table id="table" width="70%"
 			style="border: 3px; background: rgb(243, 244, 248);">
 			<tr>
 				<td>
@@ -21,7 +21,6 @@
 								<th>Author</th>
 								<th>Create Date</th>
 								<th>Average rating</th>
-								<th>Note code</th>
 							</tr>
 						</thead>
 					</table>

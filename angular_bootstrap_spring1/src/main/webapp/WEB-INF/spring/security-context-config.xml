@@ -20,6 +20,7 @@
 		remember-me user -->
 	<http auto-config="true">
 		<intercept-url pattern="/admin**" access="ROLE_ADMIN" />
+		<intercept-url pattern="/rest**" access="ROLE_ADMIN" />
 		<intercept-url pattern="/user**" access="ROLE_USER,ROLE_ADMIN" />
 		<logout logout-success-url="/" />
 	</http>

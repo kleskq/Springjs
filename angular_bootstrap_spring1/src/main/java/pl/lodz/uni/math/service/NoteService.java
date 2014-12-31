@@ -4,6 +4,7 @@ import java.util.List;
 
 import pl.lodz.uni.math.dto.NewNoteDto;
 import pl.lodz.uni.math.dto.NoteDto;
+import pl.lodz.uni.math.dto.NoteInfoDto;
 import pl.lodz.uni.math.dto.NoteLDto;
 import pl.lodz.uni.math.dto.NoteRatingJsonDto;
 import pl.lodz.uni.math.dto.RatingDto;
@@ -17,4 +18,5 @@ public interface NoteService {
 	public boolean saveRating(String id, String rating, String name);
 	public RatingDto getRatingForNoteAndUser(long id, String name);
 	public NoteRatingJsonDto getNotes(int pageNumber,String searchParameter,int pageDisplayLength, String columntToSort, String sortDirection);
+	public NoteInfoDto getNotesInfo();
 }
