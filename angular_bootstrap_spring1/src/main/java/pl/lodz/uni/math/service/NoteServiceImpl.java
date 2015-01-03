@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,8 +49,9 @@ public class NoteServiceImpl implements NoteService {
 		Date date = new Date();
 		noteEngine.setLinkId(date.getTime());
 		noteEngine.setCreateDate(date);
-		noteEngine.setCategory(categoryDao.getCategoryByCategoryName(newNoteDto
-				.getCategory()));
+		noteEngine.setCategory(categoryDao
+				.getCategoryByCategoryName(StringUtils.uncapitalize(newNoteDto
+						.getCategory())));
 
 		if (noteDao.saveNote(noteEngine)) {
 			return noteEngine.getLinkId();

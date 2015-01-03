@@ -5,6 +5,8 @@ import java.util.Set;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
+import org.apache.commons.lang.StringUtils;
+
 import pl.lodz.uni.math.pojo.Category;
 
 @Entity
@@ -21,12 +23,22 @@ public class CategoryEngine extends Category {
 	}
 
 	public CategoryEngine(String categoryName) {
-		super(categoryName);
+		super(StringUtils.uncapitalize(categoryName));
 	}
 
 	public CategoryEngine(int categoryId, String categoryName,
 			Set<NoteEngine> notes) {
-		super(categoryId, categoryName, notes);
+		super(categoryId, StringUtils.uncapitalize(categoryName), notes);
+	}
+	
+	@Override
+	public String getCategoryName(){
+		return StringUtils.capitalize(super.getCategoryName());
+	}
+	
+	@Override
+	public void setCategoryName(String categoryName){
+		super.setCategoryName(StringUtils.uncapitalize(categoryName));
 	}
 
 }

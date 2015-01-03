@@ -10,7 +10,6 @@ import java.util.Map;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
-import org.apache.commons.collections.map.HashedMap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
@@ -111,12 +110,14 @@ public class NoteDaoImpl extends BaseDao implements NoteDao {
 		Query query = null;
 		if (!todaysNotes) {
 			query = em.createQuery("SELECT COUNT(n) FROM NoteEngine n");
-		}
-		else{
+		} else {
 			Calendar cal = Calendar.getInstance();
 			cal.add(Calendar.DAY_OF_YEAR, -1);
 			Date maxModDate = cal.getTime();
-			query = em.createQuery("SELECT COUNT(n) FROM NoteEngine n WHERE n.createDate >= :maxModDate").setParameter("maxModDate", maxModDate);
+			query = em
+					.createQuery(
+							"SELECT COUNT(n) FROM NoteEngine n WHERE n.createDate >= :maxModDate")
+					.setParameter("maxModDate", maxModDate);
 		}
 		int count = (int) countData(query);
 

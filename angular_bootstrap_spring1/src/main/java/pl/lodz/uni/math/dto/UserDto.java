@@ -1,7 +1,5 @@
 package pl.lodz.uni.math.dto;
 
-import java.util.Date;
-
 public class UserDto {
 	private int id;
 	private String userName;
