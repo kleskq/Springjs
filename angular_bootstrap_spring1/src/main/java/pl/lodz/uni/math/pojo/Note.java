@@ -51,7 +51,7 @@ public class Note implements Serializable, Cloneable {
 	private Set<RateEngine> rates;
 	
 	@Formula("(SELECT avg(r.rating) FROM Rate r)")
-	private double avrageRating = 3.0;
+	private Double avrageRating = 3.0;
 	
 	public int getNoteId() {
 		return noteId;

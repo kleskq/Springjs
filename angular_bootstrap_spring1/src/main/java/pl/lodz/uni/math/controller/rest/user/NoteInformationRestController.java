@@ -20,6 +20,5 @@ public class NoteInformationRestController {
 	public NoteInfoDto getNoteInfo() {
 		return noteService.getNotesInfo();
 	}
-	
-	
+
 }

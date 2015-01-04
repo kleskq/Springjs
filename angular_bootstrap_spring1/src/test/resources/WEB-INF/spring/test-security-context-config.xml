@@ -7,30 +7,43 @@
 
 	<global-method-security pre-post-annotations="enabled" />
 
-	<!-- hasRole([role]) Returns true if the current principal has the specified 
-		role. hasAnyRole([role1,role2]) Returns true if the current principal has 
-		any of the supplied roles (given as a comma-separated list of strings) principal 
-		Allows direct access to the principal object representing the current user 
-		authentication Allows direct access to the current Authentication object 
-		obtained from the SecurityContext permitAll Always evaluates to true denyAll 
-		Always evaluates to false isAnonymous() Returns true if the current principal 
-		is an anonymous user isRememberMe() Returns true if the current principal 
-		is a remember-me user isAuthenticated() Returns true if the user is not anonymous 
-		isFullyAuthenticated() Returns true if the user is not an anonymous or a 
-		remember-me user -->
-	<http auto-config="true">
-		<intercept-url pattern="/admin**" access="ROLE_ADMIN" />
-		<intercept-url pattern="/user**" access="ROLE_USER,ROLE_ADMIN" />
-		<logout logout-success-url="/" />
+	<!-- 
+		hasRole([role]) 
+			Returns true if the current principal has the specified role. 
+		hasAnyRole([role1,role2]) 
+			Returns true if the current principal has any of the supplied roles (given as a comma-separated list of strings) 
+		principal 
+			Allows direct access to the principal object representing the current user 
+		authentication 
+			Allows direct access to the current Authentication object obtained from the SecurityContext 
+		permitAll 
+			Always evaluates to true 
+		denyAll 
+			Always evaluates to false 
+		isAnonymous() 
+			Returns true if the current principal is an anonymous user 
+		isRememberMe() 
+			Returns true if the current principal is a remember-me user 
+		isAuthenticated() 
+			Returns true if the user is not anonymous 
+		isFullyAuthenticated() 
+			Returns true if the user is not an anonymous or a remember-me user 
+	 -->
+	<http pattern="/resources/**" security="none" />
+	
+	<http use-expressions="true">
+		<http-basic entry-point-ref="unauthorisedEntryPoint"/>
+		<intercept-url pattern="/**" access="permitAll" />
+		<logout invalidate-session="true" delete-cookies="JSESSIONID" />
+		<session-management session-fixation-protection="newSession"/>
 	</http>
-
-
-	<authentication-manager alias="authenticationManager">
-		<authentication-provider user-service-ref="customUserDetailsService">
-			<password-encoder hash="plaintext"></password-encoder>
-		</authentication-provider>
-	</authentication-manager>
-
-
+	
+	<authentication-manager alias="authenticationManager"> 
+	    <authentication-provider>
+	    	<user-service>
+	    		<user name="testadmin" password="testadmin" authorities="ROLE_ADMIN" />
+	    	</user-service>
+	    </authentication-provider>
+  </authentication-manager>
 
 </beans:beans>

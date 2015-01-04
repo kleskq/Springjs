@@ -40,5 +40,7 @@ public class NoteDto {
 	public void setCreateDate(Date createDate) {
 		this.createDate = createDate;
 	}
+	
+	
 
 }
