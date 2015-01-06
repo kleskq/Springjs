@@ -14,7 +14,7 @@
                  | <a href="<c:url value="/j_spring_security_logout"/>">Logout</a>
 		</c:when>
 		<c:otherwise>
-			<a href="<c:url value="/spring_security_login"/>">Log in</a>
+			<a href="<c:url value="/auth/login"/>">Log in</a>
 		</c:otherwise>
 	</c:choose>
 

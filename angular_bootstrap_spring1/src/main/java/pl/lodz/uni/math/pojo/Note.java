@@ -50,8 +50,8 @@ public class Note implements Serializable, Cloneable {
 	@OneToMany(mappedBy = "note", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private Set<RateEngine> rates;
 	
-	@Formula("(SELECT avg(r.rating) FROM Rate r)")
-	private Double avrageRating = 3.0;
+	
+	private double avrageRating;
 	
 	public int getNoteId() {
 		return noteId;
@@ -118,7 +118,7 @@ public class Note implements Serializable, Cloneable {
 	}
 
 	
-	
+	@Formula("(select avg(r.Rating) from Rate r where r.NoteId = noteId)")
 	public double getAvrageRating() {
 		return avrageRating;
 	}

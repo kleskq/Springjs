@@ -2,10 +2,10 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>pl.lodz.uni.math</groupId>
-	<artifactId>angular_bootstrap_spring1</artifactId>
+	<artifactId>Angular_Spring</artifactId>
 	<packaging>war</packaging>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>Angular JS with Bootstrap and Spring Maven Webapp</name>
+	<name>Angular JS with Spring</name>
 	<url>http://maven.apache.org</url>
 
 	<properties>
@@ -40,10 +40,15 @@
 
 	<dependencies>
 		<dependency>
-	<groupId>com.jayway.jsonpath</groupId>
-	<artifactId>json-path</artifactId>
-	<version>0.9.1</version>
-</dependency>
+			<groupId>com.jayway.jsonpath</groupId>
+			<artifactId>json-path</artifactId>
+			<version>0.9.1</version>
+		</dependency>
+		<dependency>
+			<groupId>net.tanesha.recaptcha4j</groupId>
+			<artifactId>recaptcha4j</artifactId>
+			<version>0.0.7</version>
+		</dependency>
 
 		<dependency>
 			<groupId>org.hamcrest</groupId>
@@ -298,12 +303,15 @@
 			<version>${mockito.version}</version>
 			<scope>test</scope>
 		</dependency>
-
-
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>5.1.17</version>
+		</dependency>
 	</dependencies>
 
 	<build>
-		<finalName>abse</finalName>
+		<finalName>springAngular</finalName>
 
 		<pluginManagement>
 			<plugins>
