@@ -14,6 +14,11 @@ app.config([ '$routeProvider', '$httpProvider', 'localStorageServiceProvider', f
             controller: 'UsersController',
 			templateUrl: 'resources/html/partials/view/users.html'
 		})
+        .when('/stats', {
+            controller: 'StatsController',
+            templateUrl: 'resources/html/partials/view/stats.html'
+        })
+
 		.otherwise({ redirectTo : "/main"});
 	
 	// ======== http configuration ===============

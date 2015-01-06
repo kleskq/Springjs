@@ -27,3 +27,12 @@ app.controller('UsersController', function ($rootScope, $scope, $http, CustomerS
             });
     }
 });
+
+app.controller('StatsController', function ($rootScope, $scope, $http, CustomerService) {
+    // Initially get users list:
+    $http.get('/rest/noteInfo')
+        .then(function(response){
+            $scope.noteStats = response.data;
+        });
+
+});
