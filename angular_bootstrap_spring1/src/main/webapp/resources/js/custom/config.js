@@ -1,9 +1,5 @@
 app.config([ '$routeProvider', '$httpProvider', 'localStorageServiceProvider', function($routeProvider, $httpProvider, localStorageServiceProvider) {
 
-    // ======= local storage configuration ========
-
-    localStorageServiceProvider.prefix = 'example';
-
 	// ======= router configuration =============
 
 	$routeProvider
@@ -14,15 +10,16 @@ app.config([ '$routeProvider', '$httpProvider', 'localStorageServiceProvider', f
 			controller: 'CustomerController',
 			templateUrl: 'resources/html/partials/view/customer_search.html'
 		})
-		.when('/login', {
-			templateUrl: 'resources/html/partials/view/login.html'
+		.when('/users', {
+            controller: 'UsersController',
+			templateUrl: 'resources/html/partials/view/users.html'
 		})
 		.otherwise({ redirectTo : "/main"});
 	
 	// ======== http configuration ===============
 	
 	//configure $http to view a login whenever a 401 unauthorized response arrives
-    $httpProvider.responseInterceptors.push(function ($rootScope, $q) {
+    /*$httpProvider.responseInterceptors.push(function ($rootScope, $q) {
         return function (promise) {
             return promise.then(
                 //success -> don't intercept
@@ -49,5 +46,5 @@ app.config([ '$routeProvider', '$httpProvider', 'localStorageServiceProvider', f
                 }
             );
         };
-    });
+    });*/
 }]);
