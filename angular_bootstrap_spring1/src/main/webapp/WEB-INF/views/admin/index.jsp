@@ -35,9 +35,6 @@
         <div ng-include src="'resources/html/partials/common/error.html'"></div>
 
         <!-- PARTIALS -->
-		<div class="section">
-
 			<div data-ng-view></div>
-		</div>
 	</body>
 </html>
